@@ -1,0 +1,141 @@
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct acount{
+    char phone[20];
+    char pa[20];
+    char name[20];
+    char na[20];
+
+    
+}l;
+struct log{
+    char ph[20];
+    char p[20];
+
+}g;
+
+int main()
+{ 
+    
+     FILE *fp;
+     int op,val=0,a,c;  
+     char ac[20]="",ch[100];   
+           printf("\t\t\t\t\t \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \n");
+           printf("\t\t\t\t\t \3              ==========================               \3   \n ");
+           printf("\t\t\t\t\t \3              WELCOME  TO PERSONAL DIARY               \3    \n");
+           printf("\t\t\t\t\t \3              ==========================               \3    \n");
+           printf("\t\t\t\t\t \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \3 \n");
+
+
+do{
+              printf("\n\n\n\n\t\t\t\t1. Login\n\t\t\t\t2. Signup\n");
+              scanf("\t\t\t\t%d",&op);
+              system("cls");
+      switch(op)
+        {
+          case 1:
+                {
+                    
+                  printf("\n\n\n\t\t\t\t\t\4\4\4\4  LOGIN  \4\4\4\4\n\n");
+                  printf("\t\t\t\t\tPhone number : ");
+                  scanf("%s",&g.ph);
+                  printf("\t\t\t\t\tPassword : ");
+                   scanf("%s",&g.p);
+                  fp=fopen("acount.dat","rb");
+                  while(fread(&l,sizeof(l),1,fp)>0)
+                  {
+                      if(strcmp(l.phone,g.ph)==0&&strcmp(l.pa,g.p)==0)
+                      {
+                          val=1;
+                          break;
+                      }
+                  }
+                  fclose(fp);
+                  if(val==1)
+                    {
+                         printf("\n\t\t\t\t\tLogin successfuly");
+                    }
+                    else
+                    {
+                         printf("\n\t\t\t\t\tLogin fail  !!try again!!\n");
+                    }
+                    getch();
+                    system("cls");
+                  break;
+                }
+           case 2:
+                {
+                   printf("\n\n\n\n\t\t\t\t\t\3\3\3\3Signup\3\3\3\3\n");
+                    printf("\n\t\t\tEnter full name : ");
+                   scanf("%s%s",&l.name,&l.na);
+                    printf("\n\t\t\tEnter phone number : ");
+                   scanf("%s",&l.phone);
+                   printf("\n\t\t\tEnter password : ");
+                   scanf("%s",&l.pa);
+                  
+                  fp=fopen("acount.dat","ab");
+                   fwrite(&l,sizeof(l),1,fp);
+                   fclose(fp);
+                   getch();
+                    system("cls");
+                   break;
+                }     
+}
+        if(val==1)
+        {break;}
+
+}while(op!=3);
+      
+           // after login copy the id in ac
+           strcpy(ac,g.ph);
+          
+         do{   
+                printf("\n\n\n\n\t\t\t1. Rrite in diary\n\t\t\t2. Read diary\n\t\t\t3. Exit\n");
+                scanf("%d",&op);
+                switch(op)
+                   {
+                      case 1:{ 
+                                 fp=fopen(ac,"ab");
+                                    printf("\n\t\t\t Enter the test :\n");
+                                       gets(ch);
+                               while( strlen(gets(ch))>0)
+                                 { 
+                                     fputs(ch,fp);
+                                     fputs("\n",fp);
+                                     
+                                 }
+                               
+                                 fclose(fp);
+                                  system("cls");
+                         break;
+                      }
+                      case 2:{ 
+                        system("cls");
+                        printf("\n\n\n\n");
+                              fp=fopen(ac,"rb");
+                              
+                              while(fgets(ch,99,fp)!=NULL)
+                              {
+                                
+                               printf("\t\t\t\t%s",ch);
+                              printf("\n");
+
+                              }
+                              fclose(fp);
+                             getch();
+                             system("cls");
+                           break;
+                      }
+                      case 3:{
+                        break;
+                      }
+                      default : {printf("\nwrong input\n");}
+                 }
+   }while(op!=3);
+
+
+
+}
